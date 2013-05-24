@@ -70,16 +70,18 @@ public class DA5_1 {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		Scanner scan = new Scanner(System.in);
-		int n = 0, m = 0;
+		int n = 0, m = 0;// n:端子数、m:辺数
 		n = scan.nextInt();
 		m = scan.nextInt();
 		boolean count[] = new boolean[m];
-		boolean is_all[] = new boolean[m];
+		boolean is_all[] = new boolean[n];
 		boolean flag_all = true;
+		boolean flag_tree = true;
 		Arrays.fill(count, false);
 		Arrays.fill(is_all, false);
 		ArrayList<Edge> A = new ArrayList<Edge>(); // 入力される辺のリスト
 		ArrayList<Edge> C = new ArrayList<Edge>(); // 調査を実行する辺のリスト
+		UnionFind uf = new UnionFind(n);
 		int vi[] = new int[m];
 		int vj[] = new int[m];
 		int w[] = new int[m];
@@ -101,16 +103,31 @@ public class DA5_1 {
 			for (int i = 0; i < m; i++) {
 				if (count[i] == true)
 					C.add(A.get(i));
-				is_all[C.get(C.size() - 1).vi] = true;
-				is_all[C.get(C.size() - 1).vj] = true;
 			}
-			for (int i = 0; i < m; i++) {
+			for (int i = 0; i < C.size(); i++) {
+				is_all[C.get(i).vi] = true;
+				is_all[C.get(i).vj] = true;
+
+			}
+			for (int i = 0; i < n; i++) {
 				if (is_all[i] == false) {
 					flag_all = false;
 					break;
 				}
 			}
-			
+			// ここまで全域木(正確には木かはわからないが)かどうかを判断
+			// ここからループになっていないかを判断
+			if (flag_all == true) {
+				for (int i = 0; i < C.size(); i++) {
+					if (uf.same(C.get(i).vi, C.get(i).vj)) {
+						flag_tree = false;
+						break;
+					}else{
+						uf.unite(C.get(i).vi, C.get(i).vj);
+					}
+				}
+			}
+			func(count, 0, m);
 		}
 	}
 
