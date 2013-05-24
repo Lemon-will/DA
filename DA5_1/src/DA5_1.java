@@ -33,6 +33,7 @@ class UnionFind {
 			rank.add(0);
 		}
 	}
+
 	void Init(int n) {
 		parents.clear();
 		rank.clear();
@@ -131,7 +132,7 @@ public class DA5_1 {
 			// ループがない場合は全域木かどうかを調査
 			if (flag_tree == true) {
 				for (int i = 1; i < n; i++) {
-					if (!uf.same(i, i-1)) {
+					if (!uf.same(i, i - 1)) {
 						flag_all = false;
 						break;
 					}
@@ -141,9 +142,6 @@ public class DA5_1 {
 			if ((flag_tree == true) && (flag_all == true)) {
 				min = Math.min(min, tmp);
 				System.out.println(min);
-				for(int i=0;i<C.size();i++){
-					System.out.println(C.get(i).vj+" "+C.get(i).vj+" "+C.get(i).w);
-				}
 			}
 			func(count, 0, m);
 		}
