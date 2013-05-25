@@ -47,7 +47,9 @@ class UnionFind {
 		if (parents.get(x) == x) {
 			return x;
 		} else {
-			return parents.set(x, find(parents.get(x)));
+			parents.set(x, find(parents.get(x)));
+			int tmp = parents.get(x);
+			return tmp;
 		}
 	}
 
