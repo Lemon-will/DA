@@ -89,11 +89,16 @@ public class DA5_1 {
 		int vi[] = new int[m];
 		int vj[] = new int[m];
 		int w[] = new int[m];
-		for (int i = 0; i < m; i++) {
-			vi[i] = scan.nextInt();
-			vj[i] = scan.nextInt();
-			w[i] = scan.nextInt();
-		}
+
+		/*
+		 * for (int i = 0; i < m; i++) { vi[i] = scan.nextInt(); vj[i] =
+		 * scan.nextInt(); w[i] = scan.nextInt(); }
+		 */
+
+		vi = random(m, n, vj, true);
+		vj = random(m, n, vi, true);
+		w = random(m, m, vj, false);
+
 		scan.close();
 		for (int i = 0; i < m; i++) {// EdgeオブジェクトをAという動的配列に代入。配列の都合上頂点は本来のNo.から1引いている
 			A.add(new Edge(vi[i] - 1, vj[i] - 1, w[i]));
@@ -162,4 +167,22 @@ public class DA5_1 {
 		}
 	}
 
+	private static int[] random(int n, int m, int a[], boolean flag) {
+		int x[] = new int[n];
+		int ct = 0;
+		boolean flag2 = true;
+		while (ct < n) {
+			flag2 = true;
+			x[ct] = (int) (Math.random() * (m - 1)) + 1;
+			if (flag == true) {
+				if (flag2 == true && x[ct] < a[ct]) {
+					flag2 = false;
+				}
+			}
+			if (flag2 == true) {
+				ct++;
+			}
+		}
+		return x;
+	}
 }
