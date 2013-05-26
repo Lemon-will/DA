@@ -35,15 +35,6 @@ class UnionFind {
 		}
 	}
 
-	void Init(int n) {
-		parents.clear();
-		rank.clear();
-		for (int i = 0; i < n; i++) {
-			parents.add(i);
-			rank.add(0);
-		}
-	}
-
 	int find(int x) {
 		if (parents.get(x) == x) {
 			return x;
