@@ -73,9 +73,24 @@ public class DA6_1 {
 			count = inc(count);
 		}
 		long end = System.currentTimeMillis();
-		System.out.println(ans);
+		if (ans == true) {
+			System.out.println("Yes");
+			for (int i = 0; i < S_1.size(); i++) {
+				System.out.print(S_1.get(i) + " ");
+			}
+			System.out.println();
+			for (int i = 0; i < S_2.size(); i++) {
+				System.out.print(S_2.get(i) + " ");
+			}
+			System.out.println();
+			for (int i = 0; i < S_3.size(); i++) {
+				System.out.print(S_3.get(i) + " ");
+			}
+			System.out.println();
+		}
 		System.out.println("Time: " + (end - start) + "ms");
 	}
+	
 
 	private static int[] inc(int[] A) {
 		flag = false;
