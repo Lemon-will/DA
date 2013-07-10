@@ -7,7 +7,7 @@ public class DA12_1 {
 	public static int time = 0;
 	public static int n = 0;
 	public static int m = 0;
-	public static Vertices[] V;
+	public static ArrayList<Vertices> V;
 	public static Edge[] E;
 
 	/**
@@ -15,14 +15,13 @@ public class DA12_1 {
 	 */
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
-		PriorityQueue<Integer> Q = new PriorityQueue<Integer>(1, new Mycomp());
 		Scanner scan = new Scanner(System.in);
 		n = scan.nextInt();
 		m = scan.nextInt();
-		V = new Vertices[m];
+		V = new ArrayList<Vertices>();
 		E = new Edge[n];
 		for (int i = 0; i < m; i++) {
-			V[i] = new Vertices(i);
+			V.add(new Vertices(i));
 		}
 		for (int i = 0; i < n; i++) {
 			E[i] = new Edge();
@@ -31,14 +30,14 @@ public class DA12_1 {
 	}
 
 	public static void DFS() {
-		for (int i = 0; i < V.length; i++) {
-			V[i].color = Vertices.WHITE;
-			V[i].pi = null;
+		for (int i = 0; i < V.size(); i++) {
+			V.get(i).color = Vertices.WHITE;
+			V.get(i).pi = null;
 		}
 		time = 0;
-		for (int i = 0; i < V.length; i++) {
-			if (V[i].color == Vertices.WHITE)
-				DFS_Visit(V[i]);
+		for (int i = 0; i < V.size(); i++) {
+			if (V.get(i).color == Vertices.WHITE)
+				DFS_Visit(V.get(i));
 		}
 	}
 
@@ -71,27 +70,51 @@ public class DA12_1 {
 
 	private static void Init(Vertices s) {
 		for (int i = 0; i < n; i++) {
-			V[i].d = 3 * n;
-			V[i].pi = null;
+			V.get(i).d = 3 * n;
+			V.get(i).pi = null;
 		}
 		s.d = 0;
 	}
-	
-	private void Relax(Vertices u,Vertices v,int w){
+
+	private static void Relax(Vertices u, Vertices v, int w) {
+		if (v.d > u.d + w) {
+			v.d = u.d + w;
+			v.pi = u;
+		}
+	}
+
+	private static void Dijkstra(int w, Vertices s) {
+		PriorityQueue<Vertices> Q = new PriorityQueue<Vertices>(1, new Mycomp());
+		ArrayList<Vertices> S = new ArrayList<Vertices>();
+		Init(s);
+		S.clear();
+		for (int i = 0; i < V.size(); i++) {
+			Q.add(V.get(i));
+		}
+		while (Q != null) {
+			Vertices u = Q.poll();
+			S.add(u);
+			for (int i = 0; i < E.length; i++) {
+				if(u.equals(E[i].u)){
+					Relax(u,E[i].v,w);//wについて再考する必要あり
+				}
+			}
+		}
+
 	}
 }
 
-class Mycomp implements Comparator<Integer> {
+class Mycomp implements Comparator<Vertices> {
 
 	@Override
-	public int compare(Integer o1, Integer o2) {
+	public int compare(Vertices o1, Vertices o2) {
 		// TODO 自動生成されたメソッド・スタブ
-		int i = o1;
-		int j = o2;
+		Vertices i = o1;
+		Vertices j = o2;
 
-		if (i > j) {
+		if (i.d > j.d) {
 			return 1;
-		} else if (i < j) {
+		} else if (i.d < j.d) {
 			return -1;
 		} else {
 			return 0;
