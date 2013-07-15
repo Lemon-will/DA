@@ -28,12 +28,12 @@ public class DA12_1 {
 		for (int i = 0; i < m; i++) {
 			E[i] = new Edge();
 		}
-		// e_data = random(n, m, true);
+		e_data = random(n, m, true);
 
 		for (int i = 0; i < m; i++) {
-			e_data[0][i] = scan.nextInt();
-			e_data[1][i] = scan.nextInt();
-			e_data[2][i] = scan.nextInt();
+			// e_data[0][i] = scan.nextInt();
+			// e_data[1][i] = scan.nextInt();
+			// e_data[2][i] = scan.nextInt();
 			E[i].u = V.get(e_data[0][i]);
 			E[i].v = V.get(e_data[1][i]);
 			E[i].w = e_data[2][i];
@@ -100,13 +100,13 @@ public class DA12_1 {
 	}
 
 	private static int[][] random(int n, int m, boolean flag) {
-		int x[][] = new int[3][n];
+		int x[][] = new int[3][m];
 		int ct = 0;
 		boolean flag2 = true;
-		while (ct < n) {
+		while (ct < m) {
 			flag2 = true;
-			x[0][ct] = (int) (Math.random() * m);
-			x[1][ct] = (int) (Math.random() * m);
+			x[0][ct] = (int) (Math.random() * (n-1));
+			x[1][ct] = (int) (Math.random() * (n-1));
 			x[2][ct] = (int) (Math.random() * 9) + 1;
 			if (flag == true) {
 				for (int i = 0; i < ct; i++) {
