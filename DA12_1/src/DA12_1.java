@@ -21,6 +21,7 @@ public class DA12_1 {
 		V = new ArrayList<Vertices>();
 		E = new Edge[n];
 		int[][] e_data = new int[3][n];
+		long start, end;
 		for (int i = 0; i < m; i++) {
 			V.add(new Vertices(i));
 		}
@@ -37,44 +38,16 @@ public class DA12_1 {
 			E[i].w = e_data[2][i];
 		}
 		scan.close();
-
+		start = System.currentTimeMillis();
 		Dijkstra(V.get(0));
-
+		end = System.currentTimeMillis();
 		for (int i = 1; i < V.size(); i++) {
 			System.out.println(i + " " + V.get(i).d);
 		}
+		System.out.println("Time:" + (end - start) + "ms");
 
 	}
-/*
-	public static void DFS() {
-		for (int i = 0; i < V.size(); i++) {
-			V.get(i).color = Vertices.WHITE;
-			V.get(i).pi = null;
-		}
-		time = 0;
-		for (int i = 0; i < V.size(); i++) {
-			if (V.get(i).color == Vertices.WHITE)
-				DFS_Visit(V.get(i));
-		}
-	}
 
-	public static void DFS_Visit(Vertices u) {
-		ArrayList<Vertices> A = new ArrayList<Vertices>();
-		time++;
-		u.d = time;
-		u.color = Vertices.GRAY;
-//		A = Adj(u);
-		for (int i = 0; i < A.size(); i++) {
-			if (A.get(i).color == Vertices.WHITE) {
-				A.get(i).pi = u;
-				DFS_Visit(A.get(i));
-			}
-		}
-		u.color = Vertices.BLACK;
-		time++;
-		u.f = time;
-	}
-*/
 	private static ArrayList<Edge> Adj(Vertices u) {
 		ArrayList<Edge> list = new ArrayList<Edge>();
 		for (int i = 0; i < n; i++) {
@@ -119,7 +92,7 @@ public class DA12_1 {
 			A.clear();
 			A = Adj(u);
 			for (int i = 0; i < A.size(); i++) {
-				Relax(u,A.get(i).v,A.get(i));
+				Relax(u, A.get(i).v, A.get(i));
 			}
 		}
 
