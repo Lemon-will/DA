@@ -16,20 +16,21 @@ public class DA12_1 {
 	public static void main(String[] args) {
 		// TODO 自動生成されたメソッド・スタブ
 		Scanner scan = new Scanner(System.in);
-		m = scan.nextInt();
 		n = scan.nextInt();
+		m = scan.nextInt();
 		V = new ArrayList<Vertices>();
-		E = new Edge[n];
-		int[][] e_data = new int[3][n];
+		E = new Edge[m];
+		int[][] e_data = new int[3][m];
 		long start, end;
-		for (int i = 0; i < m; i++) {
+		for (int i = 0; i < n; i++) {
 			V.add(new Vertices(i));
 		}
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < m; i++) {
 			E[i] = new Edge();
 		}
+		// e_data = random(n, m, true);
 
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < m; i++) {
 			e_data[0][i] = scan.nextInt();
 			e_data[1][i] = scan.nextInt();
 			e_data[2][i] = scan.nextInt();
@@ -50,7 +51,7 @@ public class DA12_1 {
 
 	private static ArrayList<Edge> Adj(Vertices u) {// 頂点ｕを含む辺をすべて返すメソッド
 		ArrayList<Edge> list = new ArrayList<Edge>();
-		for (int i = 0; i < n; i++) {
+		for (int i = 0; i < m; i++) {
 			if (E[i].u.equals(u)) {
 				list.add(E[i]);
 			}
@@ -96,6 +97,31 @@ public class DA12_1 {
 			}
 		}
 
+	}
+
+	private static int[][] random(int n, int m, boolean flag) {
+		int x[][] = new int[3][n];
+		int ct = 0;
+		boolean flag2 = true;
+		while (ct < n) {
+			flag2 = true;
+			x[0][ct] = (int) (Math.random() * m);
+			x[1][ct] = (int) (Math.random() * m);
+			x[2][ct] = (int) (Math.random() * 9) + 1;
+			if (flag == true) {
+				for (int i = 0; i < ct; i++) {
+					if (flag2 == true && x[0][ct] == x[0][i]
+							&& x[1][ct] == x[1][i]) {
+						flag2 = false;
+						break;
+					}
+				}
+			}
+			if (flag2 == true) {
+				ct++;
+			}
+		}
+		return x;
 	}
 }
 
