@@ -48,7 +48,7 @@ public class DA12_1 {
 
 	}
 
-	private static ArrayList<Edge> Adj(Vertices u) {
+	private static ArrayList<Edge> Adj(Vertices u) {// 頂点ｕを含む辺をすべて返すメソッド
 		ArrayList<Edge> list = new ArrayList<Edge>();
 		for (int i = 0; i < n; i++) {
 			if (E[i].u.equals(u)) {
@@ -58,7 +58,7 @@ public class DA12_1 {
 		return list;
 	}
 
-	private static void Init(Vertices s) {
+	private static void Init(Vertices s) {// ダイクストラ初期化メソッド
 		int tmp = 0;
 		for (int i = 0; i < E.length; i++) {
 			tmp += E[i].w;
@@ -70,14 +70,14 @@ public class DA12_1 {
 		s.d = 0;
 	}
 
-	private static void Relax(Vertices u, Vertices v, Edge E) {
+	private static void Relax(Vertices u, Vertices v, Edge E) {// 緩和メソッド
 		if (v.d > u.d + E.w) {
 			v.d = u.d + E.w;
 			v.pi = u;
 		}
 	}
 
-	private static void Dijkstra(Vertices s) {
+	private static void Dijkstra(Vertices s) {// ダイクストラ法を実行するメソッド
 		PriorityQueue<Vertices> Q = new PriorityQueue<Vertices>(1, new Mycomp());
 		ArrayList<Vertices> S = new ArrayList<Vertices>();
 		ArrayList<Edge> A = new ArrayList<Edge>();
@@ -99,7 +99,7 @@ public class DA12_1 {
 	}
 }
 
-class Mycomp implements Comparator<Vertices> {
+class Mycomp implements Comparator<Vertices> {// プライオリティキューの順番を決めるためのクラス
 
 	@Override
 	public int compare(Vertices o1, Vertices o2) {
@@ -118,26 +118,21 @@ class Mycomp implements Comparator<Vertices> {
 
 }
 
-class Vertices {
-	public final static int WHITE = 0;
-	public final static int GRAY = 1;
-	public final static int BLACK = 2;
-	int index;
-	int d, f;
-	int color;
-	Vertices pi;
+class Vertices {// 頂点クラス
+	int index;// 頂点を区別するためのインデックス
+	int d;// 最短路推定値
+	Vertices pi;// 先行点
 
 	public Vertices(int id) {
 		// TODO 自動生成されたコンストラクター・スタブ
 		index = id;
-		color = WHITE;
-		pi = null;
+		pi = null;// 先行点はnullにしておく→つまり接続している辺がない
 	}
 
 }
 
-class Edge {
-	Vertices u, v;
-	int w;
+class Edge {// 辺クラス
+	Vertices u, v;// 辺の端点
+	int w;// 重み
 
 }
